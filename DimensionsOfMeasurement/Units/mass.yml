@@ -1,0 +1,81 @@
+﻿Units:
+  -
+    Name: Kilogram
+    Dimensionality: Mass
+    Symbol: "kg"
+    Factor: 1
+  -
+    Name: Gram
+    Unit: Kilogram
+    Symbol: "g"
+    Factor: 0.001
+  -
+    Name: Milligram
+    SiPrefix: "m"
+    Unit: Gram
+  -
+    Name: Microgram
+    SiPrefix: "micro"
+    Unit: Gram
+  -
+    Name: Nanogram
+    SiPrefix: "n"
+    Unit: Gram
+  -
+    Name: Picogram
+    SiPrefix: "p"
+    Unit: Gram
+  -
+    Name: Femtogram
+    SiPrefix: "f"
+    Unit: Gram
+  -
+    Name: Attogram
+    SiPrefix: "a"
+    Unit: Gram
+  -
+    Name: Zeptogram
+    SiPrefix: "z"
+    Unit: Gram
+  -
+    Name: Yoctogram
+    SiPrefix: "y"
+    Unit: Gram
+  -
+    Name: Tonne
+    Unit: Kilogram
+    Symbol: "tonne"
+    Factor: 1000
+  -
+    Name: Megatonne
+    SiPrefix: "M"
+    Unit: Tonne
+  -
+    Name: Gigatonne
+    SiPrefix: "G"
+    Unit: Tonne
+  -
+    Name: Ounce
+    Unit: Gram
+    Symbol: "oz"
+    Factor: 28.349523 # https://www.digitaldutch.com/unitconverter/mass.htm
+  -
+    Name: Pound
+    Unit: Ounce
+    Symbol: "lb"
+    Factor: 16
+  -
+    Name: Ton
+    Unit: Pound
+    Symbol: "ton"
+    Factor: 2000
+  -
+    Name: Grain
+    Unit: Gram
+    Symbol: "gr"
+    Factor: 0.064799 # https://www.digitaldutch.com/unitconverter/mass.htm
+  -
+    Name: TroyOunce
+    Unit: Grain
+    Symbol: "oz t"
+    Factor: 480

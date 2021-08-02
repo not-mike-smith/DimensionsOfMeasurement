@@ -1,0 +1,15 @@
+﻿Units:
+  -
+    Name: Pa
+    Dimensionality: "Force.Dimensions / Area.Dimensions"
+    Symbol: "Pa"
+    Factor: 1
+# etc.
+  -
+    Name: Psi
+    Symbol: "psi"
+    From:
+      - Name: Force.Pound
+        Exponent: 1
+      - Name: Area.SquareInch
+        Exponent: -1

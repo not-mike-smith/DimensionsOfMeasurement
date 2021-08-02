@@ -10,5 +10,27 @@
             <_Parameter1>DimensionsOfMeasurement.Test</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
+    <ItemGroup>
+      <None Update="Units\helper.ttinclude">
+        <Generator>TextTemplatingFileGenerator</Generator>
+      </None>
+      <None Update="Units\Mass.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>Mass.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Units\mass.cs">
+        <DependentUpon>Mass.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Units\Mass.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>Mass.tt</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="YamlDotNet" Version="11.2.1" />
+    </ItemGroup>
 
 </Project>
