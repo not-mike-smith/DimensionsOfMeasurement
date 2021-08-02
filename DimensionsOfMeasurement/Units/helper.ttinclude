@@ -63,7 +63,7 @@
 
             if (u.UseSiPrefixCreation)
             {
-                return $"{S} {u.Name} {C}(\"{u.SiPrefix}\", {u.Unit});";
+                return $"{S} {u.Name} = Metric.{u.SiPrefix}({u.Unit});";
             }
 
             if (u.UseConstituentUnitWithSymbolCreation)

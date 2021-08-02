@@ -1,4 +1,5 @@
 ﻿using System;
+using DimensionsOfMeasurement.Units;
 using FluentAssertions;
 using Xunit;
 
@@ -113,24 +114,15 @@ namespace DimensionsOfMeasurement.Test
         [Fact]
         public void CreateSiPrefixedUnits_HappyPath()
         {
-            var km = UnitFactory.Create("k", Meter);
+            var km = UnitFactory.Create(Metric.k, Meter);
             km.Dimensionality.Should().Be(Dimensionality.Length);
             km.Symbol.Should().Be("km");
             km.KmsConversionFactor.Should().Be(1000);
 
-            var micrometer1 = UnitFactory.Create("micro", Meter);
+            var micrometer1 = UnitFactory.Create(Metric.micro, Meter);
             micrometer1.Symbol.Should().Be("μm");
             micrometer1.KmsConversionFactor.Should().Be(1E-6);
-            var micrometer2 = UnitFactory.Create("μ", Meter);
-            micrometer2.Symbol.Should().Be("μm");
-            micrometer2.KmsConversionFactor.Should().Be(1E-6);
 
-            var yottameter = UnitFactory.Create("Y", Meter);
-            yottameter.Symbol.Should().Be("Ym");
-            yottameter.Symbol.Should().NotBe("ym");
-            var yoctometer = UnitFactory.Create("y", Meter);
-            yoctometer.Symbol.Should().Be("ym");
-            yoctometer.Symbol.Should().NotBe("Ym");
         }
     }
 }
