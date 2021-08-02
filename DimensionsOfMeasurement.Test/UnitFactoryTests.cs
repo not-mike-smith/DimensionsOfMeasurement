@@ -114,12 +114,12 @@ namespace DimensionsOfMeasurement.Test
         [Fact]
         public void CreateSiPrefixedUnits_HappyPath()
         {
-            var km = UnitFactory.Create(Metric.k, Meter);
+            var km = UnitFactory.Create(Metric.Kilo, Meter);
             km.Dimensionality.Should().Be(Dimensionality.Length);
             km.Symbol.Should().Be("km");
             km.KmsConversionFactor.Should().Be(1000);
 
-            var micrometer1 = UnitFactory.Create(Metric.micro, Meter);
+            var micrometer1 = UnitFactory.Create(Metric.Micro, Meter);
             micrometer1.Symbol.Should().Be("μm");
             micrometer1.KmsConversionFactor.Should().Be(1E-6);
 
