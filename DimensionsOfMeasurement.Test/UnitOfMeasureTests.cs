@@ -60,5 +60,13 @@ namespace DimensionsOfMeasurement.Test
         {
             Dimensionless.EddyCorrectionFactor.KmsConversionFactor.Should().NotBe(1);
         }
+
+        [Fact]
+        public static void DerivedUnitString()
+        {
+            var kgPerM3 = Density.KgPerM3.ToString();
+            kgPerM3.Should().Be("kg/m³");
+            Density.GramPerCc.ToString().Should().Be("g/cm³");
+        }
     }
 }

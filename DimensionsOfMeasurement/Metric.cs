@@ -1,4 +1,4 @@
-﻿namespace DimensionsOfMeasurement.Units
+﻿namespace DimensionsOfMeasurement
 {
     public class Metric
     {

@@ -33,5 +33,10 @@ namespace DimensionsOfMeasurement.Units
         public static readonly Uom PerYear = UnitFactory.Create(
             "yr⁻¹",
             (Time.GregorianYear, -1));
+
+        // Radiation
+        public static readonly Uom Becquerel = UnitFactory.Create(Hertz, "Bq", 1);
+        public static readonly Uom Rutherford = UnitFactory.Create(Becquerel, "Rd", 1e6);
+        public static readonly Uom Curie = UnitFactory.Create(Rutherford, "Ci", 37000);
     }
 }
