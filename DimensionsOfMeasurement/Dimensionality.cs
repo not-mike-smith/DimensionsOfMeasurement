@@ -71,6 +71,7 @@ namespace DimensionsOfMeasurement
             FundamentalDimensions.TryGetValue(fundamentalDimension, out var exponent)
                 ? exponent
                 : 0;
+
         private IEnumerable<FundamentalDimension> OrderedKeys => FundamentalDimensions.Keys
             .OrderBy(f => FundamentalDimension.Order[f]);
 

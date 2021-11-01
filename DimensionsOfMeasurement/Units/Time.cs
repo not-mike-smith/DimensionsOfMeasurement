@@ -23,6 +23,7 @@ namespace DimensionsOfMeasurement.Units
         public static readonly Uom Zeptosecond = Metric.z(Second);
         public static readonly Uom Yoctosecond = Metric.y(Second);
 
+        public static readonly Uom PlankTime = UnitFactory.Create(Second, "𝘵ₚ", 5.39056E-44);
         public static readonly Uom Jiffy = UnitFactory.Create(Second, "jiffy", 3E-24);
         public static readonly Uom Svedberg = UnitFactory.Create(Second, "Sv", 1E-13);
         public static readonly Uom Shake = UnitFactory.Create(Second, "shake", 1E-8);

@@ -29,7 +29,7 @@ namespace DimensionsOfMeasurement.Units
         // Atomic
         public static readonly Uom Angstrom = UnitFactory.Create(Meter, "Å", 1E10);
         public static readonly Uom XUnit = UnitFactory.Create(Meter, "xu", 1d/1.0021E-13);
-        public static readonly Uom Planck = UnitFactory.Create(Meter, "ℓₚ", 1d / 1.61625518E-35);
+        public static readonly Uom PlanckLength = UnitFactory.Create(Meter, "ℓₚ", 1d / 1.61625518E-35);
         public static readonly Uom BohrRadius = UnitFactory.Create(Meter, "a₀", 1d / 5.2917721090380E-11);
 
         // Astronomical

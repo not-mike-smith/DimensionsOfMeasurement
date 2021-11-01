@@ -1,4 +1,5 @@
 ﻿using System;
+using DimensionsOfMeasurement.Units;
 using FluentAssertions;
 using Xunit;
 
@@ -52,6 +53,12 @@ namespace DimensionsOfMeasurement.Test
         {
             Func<UnitOfMeasure> shouldThrow = () => new UnitOfMeasure(Dimensionality.Dimensionless, null, 1);
             shouldThrow.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void EddyCorrectionFactor()
+        {
+            Dimensionless.EddyCorrectionFactor.KmsConversionFactor.Should().NotBe(1);
         }
     }
 }
