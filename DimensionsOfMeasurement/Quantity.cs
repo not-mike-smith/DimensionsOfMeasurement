@@ -1,112 +1,151 @@
 ﻿using System;
 using DimensionsOfMeasurement.Exceptions;
 
-namespace DimensionsOfMeasurement
+namespace DimensionsOfMeasurement;
+
+public readonly struct Quantity
 {
-    public readonly struct Quantity
+    private readonly double? _value;
+    public readonly Dimensionality Dimensionality;
+    private double Value => _value ?? double.NaN;
+
+    public Quantity(double value, UnitOfMeasure unitOfMeasure)
     {
-        private readonly double? _value;
-        public readonly Dimensionality Dimensionality;
-        private double Value => _value ?? double.NaN;
+        _value = unitOfMeasure.ConvertToKmsValue(value);
+        Dimensionality = unitOfMeasure.Dimensionality;
+    }
 
-        public Quantity(double value, UnitOfMeasure unitOfMeasure)
+    internal Quantity(double value, Dimensionality dimensionality)
+    {
+        _value = value;
+        Dimensionality = dimensionality;
+    }
+
+    public double In(UnitOfMeasure unitOfMeasure)
+    {
+        if (Dimensionality != unitOfMeasure.Dimensionality)
         {
-            _value = unitOfMeasure.ConvertToKmsValue(value);
-            Dimensionality = unitOfMeasure.Dimensionality;
+            throw new IncompatibleDimensionsException(
+                $"Cannot express {Dimensionality} value in {unitOfMeasure.Symbol}");
         }
 
-        private Quantity(double value, Dimensionality dimensionality)
+        return unitOfMeasure.ConvertFromKmsValue(Value);
+    }
+
+    public double TryIn(UnitOfMeasure unitOfMeasure)
+    {
+        return Dimensionality == unitOfMeasure.Dimensionality
+            ? unitOfMeasure.ConvertFromKmsValue(Value)
+            : double.NaN;
+    }
+
+    public bool IsNegative()
+    {
+        return double.IsNegative(Value);
+    }
+
+    public bool IsNaN()
+    {
+        return double.IsNaN(Value);
+    }
+
+    public bool IsInfinity()
+    {
+        return double.IsInfinity(Value);
+    }
+
+    public bool IsPositiveInfinity()
+    {
+        return double.IsPositiveInfinity(Value);
+    }
+
+    public bool IsNegativeInfinity()
+    {
+        return double.IsNegativeInfinity(Value);
+    }
+
+    public bool IsFinite()
+    {
+        return double.IsFinite(Value);
+    }
+
+    public bool IsNormal()
+    {
+        return double.IsNormal(Value);
+    }
+
+    public bool IsSubnormal()
+    {
+        return double.IsSubnormal(Value);
+    }
+
+    public override string ToString()
+    {
+        return $"{Value:E4} {Dimensionality.ToString()}"; // try to get fundamental unit later
+    }
+
+    public static Quantity operator +(Quantity lhs, Quantity rhs)
+    {
+        if (lhs.Dimensionality != rhs.Dimensionality)
         {
-            _value = value;
-            Dimensionality = dimensionality;
+            throw new IncompatibleDimensionsException(
+                $"Cannot add {lhs.Dimensionality} quantity and {rhs.Dimensionality} quantity");
         }
 
-        public double In(UnitOfMeasure unitOfMeasure)
-        {
-            if (Dimensionality != unitOfMeasure.Dimensionality)
-            {
-                throw new IncompatibleDimensionsException(
-                    $"Cannot express {Dimensionality} value in {unitOfMeasure.Symbol}");
-            }
+        return new Quantity(lhs.Value + rhs.Value, lhs.Dimensionality);
+    }
 
-            return unitOfMeasure.ConvertFromKmsValue(Value);
+    public static Quantity operator -(Quantity lhs, Quantity rhs)
+    {
+        if (lhs.Dimensionality != rhs.Dimensionality)
+        {
+            throw new IncompatibleDimensionsException(
+                $"Cannot subtract {rhs.Dimensionality} quantity from {lhs.Dimensionality} quantity");
         }
 
-        public double TryIn(UnitOfMeasure unitOfMeasure)
-        {
-            return Dimensionality == unitOfMeasure.Dimensionality
-                ? unitOfMeasure.ConvertFromKmsValue(Value)
-                : double.NaN;
-        }
+        return new Quantity(lhs.Value - rhs.Value, lhs.Dimensionality);
+    }
 
-        public override string ToString()
-        {
-            return $"{Value:E4} {Dimensionality.ToString()}"; // try to get fundamental unit later
-        }
+    public static Quantity operator *(Quantity lhs, Quantity rhs)
+    {
+        return new Quantity(lhs.Value * rhs.Value, lhs.Dimensionality * rhs.Dimensionality);
+    }
 
-        public static Quantity operator +(Quantity lhs, Quantity rhs)
-        {
-            if (lhs.Dimensionality != rhs.Dimensionality)
-            {
-                throw new IncompatibleDimensionsException(
-                    $"Cannot add {lhs.Dimensionality} quantity and {rhs.Dimensionality} quantity");
-            }
+    public static Quantity operator /(Quantity lhs, Quantity rhs)
+    {
+        return new Quantity(lhs.Value / rhs.Value, lhs.Dimensionality / rhs.Dimensionality);
+    }
 
-            return new Quantity(lhs.Value + rhs.Value, lhs.Dimensionality);
-        }
+    public static explicit operator Quantity(double d)
+    {
+        return new Quantity(d, Dimensionality.Dimensionless);
+    }
 
-        public static Quantity operator -(Quantity lhs, Quantity rhs)
-        {
-            if (lhs.Dimensionality != rhs.Dimensionality)
-            {
-                throw new IncompatibleDimensionsException(
-                    $"Cannot subtract {rhs.Dimensionality} quantity from {lhs.Dimensionality} quantity");
-            }
+    public Quantity ToPower(int exponent)
+    {
+        return new Quantity(Math.Pow(Value, exponent), Dimensionality * exponent);
+    }
 
-            return new Quantity(lhs.Value - rhs.Value, lhs.Dimensionality);
-        }
+    public Quantity ToRoot(int root)
+    {
+        return new Quantity(Math.Pow(Value, 1d / root), Dimensionality / root);
+    }
 
-        public static Quantity operator *(Quantity lhs, Quantity rhs)
-        {
-            return new Quantity(lhs.Value * rhs.Value, lhs.Dimensionality * rhs.Dimensionality);
-        }
+    public Quantity TryAdd(Quantity other)
+    {
+        var value = Dimensionality == other.Dimensionality
+            ? Value + other.Value
+            : double.NaN;
 
-        public static Quantity operator /(Quantity lhs, Quantity rhs)
-        {
-            return new Quantity(lhs.Value / rhs.Value, lhs.Dimensionality / rhs.Dimensionality);
-        }
+        return new Quantity(value, Dimensionality);
+    }
 
-        public static explicit operator Quantity(double d)
-        {
-            return new Quantity(d, Dimensionality.Dimensionless);
-        }
+    public Quantity TrySubtract(Quantity other)
+    {
+        var value = Dimensionality == other.Dimensionality
+            ? Value - other.Value
+            : double.NaN;
 
-        public Quantity ToPower(int exponent)
-        {
-            return new Quantity(Math.Pow(Value, exponent), Dimensionality * exponent);
-        }
-
-        public Quantity ToRoot(int root)
-        {
-            return new Quantity(Math.Pow(Value, 1d / root), Dimensionality / root);
-        }
-
-        public Quantity TryAdd(Quantity other)
-        {
-            var value = Dimensionality == other.Dimensionality
-                ? Value + other.Value
-                : double.NaN;
-
-            return new Quantity(value, Dimensionality);
-        }
-
-        public Quantity TrySubtract(Quantity other)
-        {
-            var value = Dimensionality == other.Dimensionality
-                ? Value - other.Value
-                : double.NaN;
-
-            return new Quantity(value, Dimensionality);
-        }
+        return new Quantity(value, Dimensionality);
     }
 }

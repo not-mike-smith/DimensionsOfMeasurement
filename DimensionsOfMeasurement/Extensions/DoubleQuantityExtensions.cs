@@ -1,10 +1,9 @@
-﻿namespace DimensionsOfMeasurement.Extensions
+﻿namespace DimensionsOfMeasurement.Extensions;
+
+public static class DoubleQuantityExtensions
 {
-    public static class DoubleQuantityExtensions
+    public static Quantity Units(this double d, UnitOfMeasure unitOfMeasure)
     {
-        public static Quantity Units(this double d, UnitOfMeasure unitOfMeasure)
-        {
-            return new Quantity(d, unitOfMeasure);
-        }
+        return new Quantity(d, unitOfMeasure);
     }
 }

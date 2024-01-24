@@ -2,18 +2,17 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DimensionsOfMeasurement.Test.Extensions
+namespace DimensionsOfMeasurement.Test.Extensions;
+
+public class IntExponentExtensionsTests
 {
-    public class IntExponentExtensionsTests
+    [Theory]
+    [InlineData(0, "⁰")]
+    [InlineData(-1, "⁻¹")]
+    [InlineData(1, "¹")]
+    [InlineData(3123, "³¹²³")]
+    public void ToSuperscript(int i, string expected)
     {
-        [Theory]
-        [InlineData(0, "⁰")]
-        [InlineData(-1, "⁻¹")]
-        [InlineData(1, "¹")]
-        [InlineData(3123, "³¹²³")]
-        public void ToSuperscript(int i, string expected)
-        {
-            i.ToSuperscript().Should().Be(expected);
-        }
+        i.ToSuperscript().Should().Be(expected);
     }
 }

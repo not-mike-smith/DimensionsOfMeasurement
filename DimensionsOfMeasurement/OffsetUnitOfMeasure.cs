@@ -1,39 +1,43 @@
 ﻿using System;
 
-namespace DimensionsOfMeasurement
+namespace DimensionsOfMeasurement;
+
+public class OffsetUnitOfMeasure : UnitOfMeasure
 {
-    public class OffsetUnitOfMeasure : UnitOfMeasure
+    private readonly double _zeroOffset;
+    public UnitOfMeasure DeltaUnit { get; }
+
+    internal OffsetUnitOfMeasure(
+        Dimensionality dimensionality,
+        string symbol,
+        double kmsConversionFactor,
+        double zeroOffset)
+        : base (dimensionality, symbol, kmsConversionFactor)
     {
-        protected readonly double ZeroOffset;
-
-        internal OffsetUnitOfMeasure(
-            Dimensionality dimensionality,
-            string symbol,
-            double kmsConversionFactor,
-            double zeroOffset)
-            : base (dimensionality, symbol, kmsConversionFactor)
+        if (double.IsNaN(zeroOffset))
         {
-            if (double.IsNaN(zeroOffset))
-            {
-                throw new ArgumentException( "zero offset cannot be NaN", nameof(zeroOffset));
-            }
-
-            if (double.IsInfinity(zeroOffset))
-            {
-                throw new ArgumentException("zero offset must be finite", nameof(zeroOffset));
-            }
-
-            ZeroOffset = zeroOffset;
+            throw new ArgumentException( "zero offset cannot be NaN", nameof(zeroOffset));
         }
 
-        public override double ConvertToKmsValue(double value)
+        if (double.IsInfinity(zeroOffset))
         {
-            return (value + ZeroOffset) * KmsConversionFactor;
+            throw new ArgumentException("zero offset must be finite", nameof(zeroOffset));
         }
 
-        public override double ConvertFromKmsValue(double value)
-        {
-            return value / KmsConversionFactor - ZeroOffset;
-        }
+        _zeroOffset = zeroOffset;
+        DeltaUnit = new UnitOfMeasure(
+            Dimensionality,
+            $"Δ{Symbol}",
+            KmsConversionFactor);
+    }
+
+    public override double ConvertToKmsValue(double value)
+    {
+        return (value + _zeroOffset) * KmsConversionFactor;
+    }
+
+    public override double ConvertFromKmsValue(double value)
+    {
+        return value / KmsConversionFactor - _zeroOffset;
     }
 }

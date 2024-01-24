@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace DimensionsOfMeasurement.Units
+namespace DimensionsOfMeasurement.Units;
+
+public static class Angle
 {
-    public static class Angle
-    {
-        public static UnitOfMeasure Radian = UnitFactory.Create(Dimensionality.Angle, "rad", 1);
-        public static UnitOfMeasure Milliradian = Metric.m(Radian);
-        public static UnitOfMeasure Revolution = UnitFactory.Create(Radian, "rev", 2 * Math.PI);
-        public static UnitOfMeasure Degree = UnitFactory.Create(Radian, "°", Math.PI / 180);
-        public static UnitOfMeasure ArcMinute = UnitFactory.Create(Degree, "′", 60);
-        public static UnitOfMeasure ArcSecond = UnitFactory.Create(ArcMinute, "″", 60);
-        public static UnitOfMeasure Gradian = UnitFactory.Create(Revolution, "grad", 400);
-    }
+    public static UnitOfMeasure Radian = UnitFactory.Create("rad", Dimensionality.Angle, 1);
+    public static UnitOfMeasure Milliradian = Metric.m(Radian);
+    public static UnitOfMeasure Revolution = UnitFactory.Create("rev", 2 * Math.PI, Radian);
+    public static UnitOfMeasure Degree = UnitFactory.Create("°", Math.PI / 180, Radian);
+    public static UnitOfMeasure ArcMinute = UnitFactory.Create("′", 60, Degree);
+    public static UnitOfMeasure ArcSecond = UnitFactory.Create("″", 60, ArcMinute);
+    public static UnitOfMeasure Gradian = UnitFactory.Create("grad", 400, Revolution);
 }
