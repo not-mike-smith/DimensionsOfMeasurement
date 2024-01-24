@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimensionsOfMeasurement", "DimensionsOfMeasurement\DimensionsOfMeasurement.csproj", "{8AB4C52C-80AA-4498-B664-075D07B40E09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurement", "Measurement\Measurement.csproj", "{8AB4C52C-80AA-4498-B664-075D07B40E09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimensionsOfMeasurement.Test", "DimensionsOfMeasurement.Test\DimensionsOfMeasurement.Test.csproj", "{23004954-8A98-48BD-A862-D893C3D9A983}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurement.Test", "Measurement.Test\Measurement.Test.csproj", "{23004954-8A98-48BD-A862-D893C3D9A983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
